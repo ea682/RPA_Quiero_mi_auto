@@ -1,74 +1,41 @@
-from Model.vehiculo import Vehiculo
-from Model.detalleVehiculo import DetalleVehiculo
-from Service.api import consultaApi
+import ast
+from Service.movicenterService import MovicenterService
+from Service.quieroMiAuto import QuieroMiAuto
+
+from Entity.ingresoVehiculo import IngresoVehiculoEntiti
+from Lib.api import ConsultaApi
 
 class MovicenterController():
     
-    def __init__(self, robotMovicenterConfig):
-        self.idConcecionaria = robotMovicenterConfig.getIdConcecionaria()
-        self.configRobot = robotMovicenterConfig
-        self.jsonVehiculos = {}
-        self.listaVehiculos = []
+    def __init__(self):
+        self.quieroMiAuto = QuieroMiAuto()
+        self.movicenterService = MovicenterService()
+        self.consultaApi = ConsultaApi()
+        self.dataRobots = self.consultaApi.leerConfigJson()["robots"]["data_robots"]
+        self.linkConcecionaria = self.getLinkPagina()
         pass
 
-    def getListaVehiculos(self):
-        return self.listaVehiculos
-
-    def obtenerVehiculosApi(self):
-        api = consultaApi(self.configRobot)
-        try:
-            response = api.consultaApi()
-            self.jsonVehiculos = response['data']
-        except Exception as ex:
-            print(ex)
-            pass
-        
-    def procesarJson(self):
-        for dataVehiculo in self.jsonVehiculos:
-            self.listaVehiculos.append(self.llenarInfoVehiculo(dataVehiculo))
-            self.listaVehiculos.append(self.llenarInfoVehiculo(dataVehiculo))
-
-    def llenarInfoVehiculo(self, dataVehiculo):
-        #Creamos link del vehiculo
-        linkVehiculo = self.configRobot.getUrlPagina()+"/autos/"+dataVehiculo["key"]
-        vehiculo = Vehiculo(
-            str(self.idConcecionaria),
-            dataVehiculo["key"],
-            dataVehiculo["brand"],
-            dataVehiculo["model"],
-            None,
-            dataVehiculo["bodyWork"],
-            linkVehiculo,
-        )
-
-        return self.llenarDetalleVehiculo(vehiculo, dataVehiculo)
-    
-    def llenarDetalleVehiculo(self, vehiculo, dataVehiculo):
-        detalleVehiculo = DetalleVehiculo(
-            vehiculo.getIdConcecionaria(),
-            vehiculo.getIdVehiculoPagina(),
-            vehiculo.getMarca(),
-            vehiculo.getModelo(),
-            vehiculo.getVersion(),
-            vehiculo.getCarroceria(),
-            vehiculo.getLinkVehiculo(),
-
-            dataVehiculo["listPrice"],
-            dataVehiculo["transmission"],
-            dataVehiculo["fuel"],
-            dataVehiculo["traction"],
-            None,
-            dataVehiculo["country"],
-            dataVehiculo["alarm"],
-            dataVehiculo["electric_mirrors"],
-            dataVehiculo["glassswing"],
-            dataVehiculo["central_lock"],
-            dataVehiculo["steering_wheel_controls"],
-            dataVehiculo["electric_mirrors"],
-            dataVehiculo["digital_radio"],
-            dataVehiculo["sunroof"],
-            dataVehiculo["adjustable_steering_wheel"]
-            
+    def runVehiculosNuevos(self):
+        reponseMovicentar = self.movicenterService.getNuevosAutos()
+        dataVehiculosNuevos = reponseMovicentar["data"]
+        for vehiculoNuevo in dataVehiculosNuevos:
+            linkVehiculo = self.linkConcecionaria+"/autos/"+vehiculoNuevo["key"]
+            listPhotos = ast.literal_eval(vehiculoNuevo["photos"])
+            ingresoVehiculoEntiti = IngresoVehiculoEntiti(
+                vehiculoNuevo["brand"], 
+                vehiculoNuevo["model"],
+                vehiculoNuevo["bodyWork"],
+                linkVehiculo,
+                listPhotos,
+                int(vehiculoNuevo["listPrice"]),
             )
-        return detalleVehiculo
-             
+            self.quieroMiAuto.ingresoVehiculo(ingresoVehiculoEntiti.__dict__)
+        return 
+
+    def getLinkPagina(self):
+        configRobot = []
+        for robot in self.dataRobots:
+            if robot["nombreRobot"] == "movicenter":
+                configRobot = robot
+                pass
+        return configRobot["urlPagina"]
