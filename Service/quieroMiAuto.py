@@ -1,4 +1,4 @@
-from Lib.api import ConsultaApi
+from LibRpa.api import ConsultaApi
 
 class QuieroMiAuto:
 
@@ -9,7 +9,7 @@ class QuieroMiAuto:
         pass
 
     def ingresoVehiculo(self, jsonRequest):
-        rutaCompleta = self.urlIngresoVehiculo + self.configApiQuieroMiAuto["URL_DATA_vehiculo"]
+        rutaCompleta = self.urlIngresoVehiculo + self.configApiQuieroMiAuto["URL_DATA_VEHICULO"]
         apiQuieroMiAuto = ConsultaApi(rutaCompleta, "POST", jsonRequest)
         responseApiQuieroMiAuto = apiQuieroMiAuto.consultaApi()
         return responseApiQuieroMiAuto

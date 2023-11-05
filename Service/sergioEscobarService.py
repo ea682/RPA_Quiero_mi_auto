@@ -1,6 +1,6 @@
 from asyncio.windows_events import NULL
 from tkinter import EXCEPTION
-from Lib.api import ConsultaApi
+from LibRpa.api import ConsultaApi
 
 class SergioEscobarService:
 
@@ -17,6 +17,8 @@ class SergioEscobarService:
                 if robot["nombreRobot"] == "sergioescobar":
                     configRobot = robot
                     pass
+            if len(configRobot) == 0:
+                return NULL
             #Validamos que el json contenga algo para la consulta
             if len(configRobot["jsonConsulta"]) == 0:
                 pass

@@ -3,7 +3,8 @@ from Service.movicenterService import MovicenterService
 from Service.quieroMiAuto import QuieroMiAuto
 
 from Entity.ingresoVehiculo import IngresoVehiculoEntiti
-from Lib.api import ConsultaApi
+
+from LibRpa.api import ConsultaApi
 
 class MovicenterController():
     

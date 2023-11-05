@@ -1,6 +1,6 @@
 from asyncio.windows_events import NULL
-from Lib.api import ConsultaApi
-from Lib.leerHtml import LeerHtml
+from LibRpa.api import ConsultaApi
+from LibRpa.leerHtml import LeerHtml
 
 from Service.sergioEscobarService import SergioEscobarService
 from Service.quieroMiAuto import QuieroMiAuto
@@ -19,6 +19,8 @@ class SergioEscobarController():
         pass
 
     def run(self):
+        if self.linkConcecionaria == 0:
+            return NULL
         responseApiSergioEscobar = self.sergioEscobarService.getNuevosAutos()["posts"]
         for vehiculoNuevo in responseApiSergioEscobar:
             
@@ -63,4 +65,7 @@ class SergioEscobarController():
             if robot["nombreRobot"] == "sergioescobar":
                 configRobot = robot
                 pass
+        if len(configRobot) == 0:
+            return NULL
+        
         return configRobot["urlPagina"]
