@@ -21,16 +21,20 @@ class MovicenterController():
         dataVehiculosNuevos = reponseMovicentar["data"]
         for vehiculoNuevo in dataVehiculosNuevos:
             linkVehiculo = self.linkConcecionaria+"/autos/"+vehiculoNuevo["key"]
-            listPhotos = ast.literal_eval(vehiculoNuevo["photos"])
+            listPhotos = vehiculoNuevo["photos"]
+            if type(listPhotos) == str:
+                listPhotos = listPhotos[2:-2].replace(" ", "").replace("\"", "").split(",")
             ingresoVehiculoEntiti = IngresoVehiculoEntiti(
-                vehiculoNuevo["brand"], 
-                vehiculoNuevo["model"],
-                vehiculoNuevo["bodyWork"],
-                linkVehiculo,
-                listPhotos,
-                int(vehiculoNuevo["listPrice"]),
+                self.isNone(vehiculoNuevo["brand"]), 
+                self.isNone(vehiculoNuevo["model"]),
+                self.isNone(vehiculoNuevo["bodyWork"]),
+                self.isNone(linkVehiculo),
+                self.isNone(listPhotos),
+                self.isNone(int(vehiculoNuevo["price"])),
             )
+
             self.quieroMiAuto.ingresoVehiculo(ingresoVehiculoEntiti.__dict__)
+            print()
         return 
 
     def getLinkPagina(self):
@@ -40,3 +44,8 @@ class MovicenterController():
                 configRobot = robot
                 pass
         return configRobot["urlPagina"]
+    
+    def isNone(self, datoValidar):
+        if None == datoValidar:
+            return "NULL"
+        return datoValidar
