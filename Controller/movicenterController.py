@@ -18,24 +18,26 @@ class MovicenterController():
 
     def runVehiculosNuevos(self):
         reponseMovicentar = self.movicenterService.getNuevosAutos()
-        dataVehiculosNuevos = reponseMovicentar["data"]
-        for vehiculoNuevo in dataVehiculosNuevos:
-            linkVehiculo = self.linkConcecionaria+"/autos/"+vehiculoNuevo["key"]
-            listPhotos = vehiculoNuevo["photos"]
-            if type(listPhotos) == str:
-                listPhotos = listPhotos[2:-2].replace(" ", "").replace("\"", "").split(",")
-            ingresoVehiculoEntiti = IngresoVehiculoEntiti(
-                self.isNone(vehiculoNuevo["brand"]), 
-                self.isNone(vehiculoNuevo["model"]),
-                self.isNone(vehiculoNuevo["bodyWork"]),
-                self.isNone(linkVehiculo),
-                self.isNone(listPhotos),
-                self.isNone(int(vehiculoNuevo["price"])),
-            )
+        if None != reponseMovicentar:
+            dataVehiculosNuevos = reponseMovicentar["data"]
+            for vehiculoNuevo in dataVehiculosNuevos:
+                linkVehiculo = self.linkConcecionaria+"/autos/"+vehiculoNuevo["key"]
+                listPhotos = vehiculoNuevo["photos"]
+                if type(listPhotos) == str:
+                    listPhotos = listPhotos[2:-2].replace(" ", "").replace("\"", "").split(",")
+                ingresoVehiculoEntiti = IngresoVehiculoEntiti(
+                    self.isNone(vehiculoNuevo["brand"]), 
+                    self.isNone(vehiculoNuevo["model"]),
+                    self.isNone(vehiculoNuevo["bodyWork"]),
+                    self.isNone(linkVehiculo),
+                    self.isNone(listPhotos),
+                    self.isNone(int(vehiculoNuevo["price"])),
+                )
 
-            self.quieroMiAuto.ingresoVehiculo(ingresoVehiculoEntiti.__dict__)
-            print()
-        return 
+                self.quieroMiAuto.ingresoVehiculo(ingresoVehiculoEntiti.__dict__)
+                print()
+        else:
+            print("Problemas con la API de Movicenter")
 
     def getLinkPagina(self):
         configRobot = []
