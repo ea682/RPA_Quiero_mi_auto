@@ -17,6 +17,12 @@ class MovicenterController():
         pass
 
     def runVehiculosNuevos(self):
+        getKilometraje = None
+        getCilindrado = None
+        getColor = None
+        getRendimiento = None
+        getYear = None
+
         reponseMovicentar = self.movicenterService.getNuevosAutos()
         if None != reponseMovicentar:
             dataVehiculosNuevos = reponseMovicentar["data"]
@@ -25,17 +31,42 @@ class MovicenterController():
                 listPhotos = vehiculoNuevo["photos"]
                 if type(listPhotos) == str:
                     listPhotos = listPhotos[2:-2].replace(" ", "").replace("\"", "").split(",")
+                if "https://movicenter.cl/autos/ge_376627" == linkVehiculo or "4x2" == getRendimiento:
+                    print()
+                if "api_nuevos" != vehiculoNuevo["type"]:
+                    for vehiculo in vehiculoNuevo["listFeatures"]:
+                        if "Kilometraje" == vehiculo["title"]:
+                            getKilometraje = self.isNumber(self.isNone(vehiculo["value"]))
+                        if "Cilindrada" == vehiculo["title"]:
+                            getCilindrado = self.isNumber(self.isNone(vehiculo["value"]))
+                        if "Color" == vehiculo["title"]:
+                            getColor = self.isNone(vehiculo["value"])
+                        if "Rendimiento Km/L" == vehiculo["title"]:
+                            getRendimiento = self.isNone(vehiculo["value"])
+                else:
+                    getKilometraje = 0,
+                    getCilindrado = self.isNumber(self.isNone(vehiculoNuevo["cilindrada"])),
+                    getColor = self.isNone(vehiculoNuevo["color"]),
+                    getRendimiento = self.isNone(None),
+                
                 ingresoVehiculoEntiti = IngresoVehiculoEntiti(
                     self.isNone(vehiculoNuevo["brand"]), 
                     self.isNone(vehiculoNuevo["model"]),
                     self.isNone(vehiculoNuevo["bodyWork"]),
                     self.isNone(linkVehiculo),
                     self.isNone(listPhotos),
-                    self.isNone(int(vehiculoNuevo["price"])),
+                    self.isNumber(self.isNone(vehiculoNuevo["price"])),
+                    self.isNone(vehiculoNuevo["fuel"]),
+                    self.isNone(vehiculoNuevo["country"]),
+                    self.isNone(vehiculoNuevo["traction"]),
+                    self.isNumber(self.isNone(getKilometraje)),
+                    self.isNumber(self.isNone(getCilindrado)),
+                    self.isNone(str(getColor).replace("(", "").replace(",)", "")),
+                    self.isNone(str(getRendimiento).replace("(", "").replace(",)", "")),
+                    self.isNumber(self.isNone(str(vehiculoNuevo["year"]).replace("(", "").replace(",)", ""))),
                 )
 
                 self.quieroMiAuto.ingresoVehiculo(ingresoVehiculoEntiti.__dict__)
-                print()
         else:
             print("Problemas con la API de Movicenter")
 
@@ -51,3 +82,10 @@ class MovicenterController():
         if None == datoValidar:
             return "NULL"
         return datoValidar
+    
+    def isNumber(self, datoValidar):
+        datoValidar = str(datoValidar).replace("(", "").replace(",)", "").replace("'", "").split(".")[0]
+        if None != datoValidar and '' != datoValidar and 'NULL' != datoValidar:
+            return int(datoValidar)
+        else:
+            return 0

@@ -11,4 +11,6 @@ class PrincipalController:
     def runRobots(self):
         self.movicenterController.runVehiculosNuevos()
         self.SergioEscobarController.run()
+
+        print("Se finaliza proceso de extraccion de informacion")
         pass
