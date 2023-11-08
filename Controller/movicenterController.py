@@ -14,6 +14,7 @@ class MovicenterController():
         self.consultaApi = ConsultaApi()
         self.dataRobots = self.consultaApi.leerConfigJson()["robots"]["data_robots"]
         self.linkConcecionaria = self.getLinkPagina()
+        self.idPagina = self.getLinkPagina()
         pass
 
     def runVehiculosNuevos(self):
@@ -26,13 +27,13 @@ class MovicenterController():
         reponseMovicentar = self.movicenterService.getNuevosAutos()
         if None != reponseMovicentar:
             dataVehiculosNuevos = reponseMovicentar["data"]
+
             for vehiculoNuevo in dataVehiculosNuevos:
                 linkVehiculo = self.linkConcecionaria+"/autos/"+vehiculoNuevo["key"]
                 listPhotos = vehiculoNuevo["photos"]
                 if type(listPhotos) == str:
                     listPhotos = listPhotos[2:-2].replace(" ", "").replace("\"", "").split(",")
-                if "https://movicenter.cl/autos/ge_376627" == linkVehiculo or "4x2" == getRendimiento:
-                    print()
+                    
                 if "api_nuevos" != vehiculoNuevo["type"]:
                     for vehiculo in vehiculoNuevo["listFeatures"]:
                         if "Kilometraje" == vehiculo["title"]:
@@ -77,6 +78,14 @@ class MovicenterController():
                 configRobot = robot
                 pass
         return configRobot["urlPagina"]
+    
+    def getIdPaginaOrigen(self):
+        configRobot = []
+        for robot in self.dataRobots:
+            if robot["nombreRobot"] == "Movicenter":
+                configRobot = robot
+                pass
+        return configRobot["idPagina"]
     
     def isNone(self, datoValidar):
         if None == datoValidar:
