@@ -14,7 +14,7 @@ class SergioEscobarService:
         try:
             configRobot = []
             for robot in self.dataRobots:
-                if robot["nombreRobot"] == "sergioescobar":
+                if robot["nombreRobot"] == "Sergio Escobar":
                     configRobot = robot
                     pass
             if len(configRobot) == 0:

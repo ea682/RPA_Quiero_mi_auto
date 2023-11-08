@@ -1,10 +1,13 @@
 from asyncio.windows_events import NULL
 from LibRpa.api import ConsultaApi
 from LibRpa.leerHtml import LeerHtml
+from LibRpa.utiitario import Utilitario
 
+#Servicios
 from Service.sergioEscobarService import SergioEscobarService
 from Service.quieroMiAuto import QuieroMiAuto
 
+#Entity
 from Entity.ingresoVehiculo import IngresoVehiculoEntiti
 
 class SergioEscobarController():
@@ -13,9 +16,11 @@ class SergioEscobarController():
         self.quieroMiAuto = QuieroMiAuto()
         self.sergioEscobarService = SergioEscobarService()
         self.consultaApi = ConsultaApi()
+        self.utilitario = Utilitario()
         self.leerHtml = ""
         self.dataRobots = self.consultaApi.leerConfigJson()["robots"]["data_robots"]
-        self.linkConcecionaria = self.getLinkPagina()
+        self.linkConcecionaria = self.utilitario.getLinkPagina(self.dataRobots, "Sergio Escobar")
+        self.idPagina = self.utilitario.getIdPaginaOrigen(self.dataRobots, "Sergio Escobar")
         pass
 
     def run(self):
@@ -27,15 +32,23 @@ class SergioEscobarController():
             linkPhotos = []
             linkPhotos = self.obtenerImgVehiculo(vehiculoNuevo["permalink"])
             ingresoVehiculo = IngresoVehiculoEntiti(
-                vehiculoNuevo["_ceswp_brand_name"], 
-                vehiculoNuevo["_ceswp_model_name"],
+                self.idPagina,
+                self.utilitario.isNone(vehiculoNuevo["_ceswp_brand_name"]), 
+                self.utilitario.isNone(vehiculoNuevo["_ceswp_model_name"]),
                 "",
-                vehiculoNuevo["permalink"],
-                linkPhotos,
-                int(vehiculoNuevo["_ceswp_price_list"]),
+                self.utilitario.isNone(vehiculoNuevo["permalink"]),
+                self.utilitario.isNone(linkPhotos),
+                self.utilitario.isNumber(self.utilitario.isNone(vehiculoNuevo["_ceswp_price_min"])),
+                self.utilitario.isNone(vehiculoNuevo["combustible"]),
+                "",
+                "",
+                0,
+                0,
+                "",
+                "",
+                0,
             )
             self.quieroMiAuto.ingresoVehiculo(ingresoVehiculo.__dict__)
-        print(responseApiSergioEscobar)
         pass
 
 
@@ -59,13 +72,4 @@ class SergioEscobarController():
         divImgPrincipal = self.leerHtml.buscarEtiquetaClase("div", "img_model_mobile hidden-desktop text-center")
         return self.leerHtml.obtenerImg(divImgPrincipal)
 
-    def getLinkPagina(self):
-        configRobot = []
-        for robot in self.dataRobots:
-            if robot["nombreRobot"] == "sergioescobar":
-                configRobot = robot
-                pass
-        if len(configRobot) == 0:
-            return NULL
-        
-        return configRobot["urlPagina"]
+    

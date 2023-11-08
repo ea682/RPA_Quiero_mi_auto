@@ -83,8 +83,8 @@ INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('24a55421-e985-4d47-a260-f8b376
 
 --Insert de paginas
 INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('2d739c55-400c-43d2-9aa8-bbeb6604a003','Movicenter','1');
-INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('c2b86d03-3889-4e06-a99c-2d383e832af6','Sergio Escobar','0');
+INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('c2b86d03-3889-4e06-a99c-2d383e832af6','Sergio Escobar','1');
 INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('91e788a0-4184-4483-9ee3-416aa4db495c','Mercado Libre','0');
 INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('47bd3441-9a15-4168-a078-45335fa836c5','Cart time','0');
-
+INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('229cfb9e-56ea-4879-afd3-da3cfff02c62','Autocosmos','1');
 

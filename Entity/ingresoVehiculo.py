@@ -1,7 +1,8 @@
 class IngresoVehiculoEntiti:
 
-    def __init__(self, marca, modelo, carroceria, linkVehiculo, photos, precio, conbustible, 
+    def __init__(self, idPagina, marca, modelo, carroceria, linkVehiculo, photos, precio, conbustible, 
                 pais, traccion, kilometraje, cilindrado, color, rendimiento, year):
+        self.idPagina = idPagina
         self.marca = marca
         self.modelo = modelo
         self.carroceria = carroceria

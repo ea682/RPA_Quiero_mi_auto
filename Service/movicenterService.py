@@ -15,7 +15,7 @@ class MovicenterService:
     def getNuevosAutos(self):
         configRobot = []
         for robot in self.dataRobots:
-            if robot["nombreRobot"] == "movicenter":
+            if robot["nombreRobot"] == "Movicenter":
                 configRobot = robot
                 pass
         apiMovicenter = ConsultaApi(configRobot["apiUrlNuevos"], configRobot["tipoConsulta"], configRobot["jsonConsulta"][0])
