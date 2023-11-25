@@ -3,6 +3,10 @@ DELETE FROM vehiculo;
 DELETE FROM detalle_vehiculo;
 DELETE FROM photo_vehiculo;
 
+--Eliminar Tablas
+DROP TABLE `carroceria`, `conbustible`, `detalle_vehiculo`, `marca`, `modelo`, `pagina`, `photo_vehiculo`, `vehiculo`;
+
+
 --Se insertan las carrorecias de los vehiculos 
 INSERT INTO `carroceria`(`idCarroceria`, `nombre`) VALUES ('0c2066a4-25fd-4295-8b72-629a99cfda58','SUV');
 INSERT INTO `carroceria`(`idCarroceria`, `nombre`) VALUES ('8adaec3c-b9cc-4afd-bbeb-8786a5705627','HATCHBACK');
@@ -88,3 +92,7 @@ INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('91e788
 INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('47bd3441-9a15-4168-a078-45335fa836c5','Cart time','0');
 INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('229cfb9e-56ea-4879-afd3-da3cfff02c62','Autocosmos','1');
 
+--Insert conbustibles
+INSERT INTO `conbustible`(`idConbustible`, `nombreCombustible`) VALUES ('f7131493-10d6-47fb-87e7-0c083bc7bd1b','BENCINA');
+INSERT INTO `conbustible`(`idConbustible`, `nombreCombustible`) VALUES ('e3723835-2481-4731-96f9-a9bfc6aba54c','GASOLINA');
+INSERT INTO `conbustible`(`idConbustible`, `nombreCombustible`) VALUES ('575c021e-2ee1-451d-af18-ef5221cd95a2','DIESEL');

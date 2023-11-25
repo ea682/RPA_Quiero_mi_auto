@@ -55,7 +55,7 @@ class SergioEscobarController():
     def obtenerImgVehiculo(self, linkVehiculo):
         arrayImg = []
         htmlVehiculo = self.sergioEscobarService.getHtmlVehiculos(linkVehiculo, "GET")
-        htmlVehiculo = htmlVehiculo.text
+        #htmlVehiculo = htmlVehiculo.text
         self.leerHtml = LeerHtml(htmlVehiculo)
         arrayImg.append(self.obtenerImgPrincipal())
         imgsVehiculo = self.obtenerImgsVehiculo()
