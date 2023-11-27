@@ -27,6 +27,7 @@ class ConsultaApi:
                 if(response.status_code == 200 or response.status_code == 201):
                     return response.json()
                 else:
+                    print(self.jsonConsulta)
                     print("Codigo de respuesta api : "+ str(response.status_code))
                     print("Mensaje de respuesta : "+response.text)
                     pass

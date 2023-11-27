@@ -6,7 +6,6 @@ DELETE FROM photo_vehiculo;
 --Eliminar Tablas
 DROP TABLE `carroceria`, `conbustible`, `detalle_vehiculo`, `marca`, `modelo`, `pagina`, `photo_vehiculo`, `vehiculo`;
 
-
 --Se insertan las carrorecias de los vehiculos 
 INSERT INTO `carroceria`(`idCarroceria`, `nombre`) VALUES ('0c2066a4-25fd-4295-8b72-629a99cfda58','SUV');
 INSERT INTO `carroceria`(`idCarroceria`, `nombre`) VALUES ('8adaec3c-b9cc-4afd-bbeb-8786a5705627','HATCHBACK');
@@ -84,6 +83,19 @@ INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('b1582786-be6f-4ace-bc9b-1dcb62
 INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('26e02e92-00c5-4b25-a353-a862847bc050','LAND ROVER');
 INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('d528cb27-3131-4d4b-970b-ff0f44c0c884','MINI');
 INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('24a55421-e985-4d47-a260-f8b3765476ef','BYD');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('d34c3a15-1dc0-4c39-a150-14f22efaa447','FIAT');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('5f77205c-9b6c-4598-aab5-adf49b854726','MERCEDES');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('343e03d2-cabf-47ac-a92c-f4e674788986','UAZ');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('fa7b7c1b-d6f2-4e27-8219-e6615209ce2a','INFINITI');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('92b036d1-b507-4c16-95dd-72842c0a29f7','PORSCHE');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('ef8064b8-8a76-4748-904d-7c97b0342d33','ACURA');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('0dcd8dc3-bcf9-4e2d-a18b-4672c15abc65','LIFAN');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('2edb3cec-998b-4ba9-94f1-b98821c325b4','DAIHATSU');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('e99658fc-fe27-4f1c-90ca-cdb94e304ddb','ZX');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('e31e52ee-b4b7-45f4-8147-5fa360343e13','FAW');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('39f89ede-5181-4711-a371-f05c6abe6833','DAEWOO');
+INSERT INTO `marca`(`idMarca`, `nombre`) VALUES ('74fa3b15-fe74-447c-9ebe-3f819ab665db','IVECO');
+
 
 --Insert de paginas
 INSERT INTO `pagina`(`idPagina`, `nombrePagina`, `isHabilitada`) VALUES ('2d739c55-400c-43d2-9aa8-bbeb6604a003','Movicenter','1');

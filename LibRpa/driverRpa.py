@@ -137,7 +137,8 @@ class DriverRpa:
             self.driver.get(urlPagina)
             isCambioPagina = True
         except Exception as err:
-            print("Error cambiar pagina: "+err)
+            print("Error cambiar pagina: ")
+            print(err)
             pass
         return isCambioPagina
     
@@ -147,7 +148,8 @@ class DriverRpa:
             self.driver.save_screenshot(direccionImg)
             isEncontrado = True
         except Exception as err:
-            print("Problemas con ScreenShot: "+err)
+            print("Problemas con ScreenShot: ")
+            print(err)
             pass
         return isEncontrado
 
@@ -161,7 +163,8 @@ class DriverRpa:
                 element.send_keys(letra)
             isSendKey = True
         except Exception as err:
-            print("Problemas al enviar la send key: "+err)
+            print("Problemas al enviar la send key: ")
+            print(err)
             pass
         return isSendKey
     
@@ -171,7 +174,8 @@ class DriverRpa:
             element.click()
             isOk = True
         except Exception as err:
-            print("Problemas con funcion click: "+err)
+            print("Problemas con funcion click: ")
+            print(err)
             pass
         return isOk
     
@@ -181,7 +185,8 @@ class DriverRpa:
             self.driver.close()
             isOk = True
         except Exception as err:
-            print("Problemas al cerrar el driver: "+err)
+            print("Problemas al cerrar el driver: ")
+            print(err)
             pass
         return isOk
     
